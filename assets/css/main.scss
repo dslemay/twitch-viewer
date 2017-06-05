@@ -1,3 +1,66 @@
-.twitch-viwer {
-  
+h1 {
+  text-align: center;
+}
+
+.twitch-viewer {
+  margin: 0 auto;
+  max-width: 75%;
+}
+
+.menubar {
+  display: flex;
+  justify-content: space-between;
+
+  a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: pink;
+
+    &:hover {
+      background-color: blue;
+    }
+  }
+}
+
+.twitch-user {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 15px;
+  background-color: pink;
+
+  .twitch-avatar {
+    display: block;
+    border-radius: 50%;
+    max-width: 100px;
+    max-height: 100px;
+  }
+}
+
+.twitch-username {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+}
+
+.twitch-game {
+  font-style: italic;
+  font-size: 18px;
+  text-align: center;
+}
+
+.online-streaming-icons {
+
+  i {
+    display: block;
+    margin-top: 10px;
+  }
+  .online {
+    color: green;
+  }
+
+  .offline {
+    color:red;
+  }
 }

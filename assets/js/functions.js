@@ -4,6 +4,7 @@ var usersObj = {};
 
 $(document).ready(function() {
   populateObj();
+  //toggleUsers();
   console.log(usersObj);
 });
 
@@ -41,4 +42,32 @@ function populateObj() {
       });
     });
   }
+}
+
+function displayUsers() {
+  
+}
+
+
+// When creating template generation apply extra class of online or offline to main div element to serve as toggle
+
+function toggleUsers() {
+  $('#all').on('click', function(e) {
+    e.preventDefault();
+    $('.online').css('display', 'block');
+    $('.offline').css('display', 'block');
+    $('#all').css('background-color', 'red');
+  });
+  $('#online').on('click', function(e) {
+    e.preventDefault();
+    $('.online').css('display', 'block');
+    $('.offline').css('display', 'hidden');
+    $('#offline').css('background-color', 'red');
+  });
+  $('#offline').on('click', function(e) {
+    e.preventDefault();
+    $('.online').css('display', 'hidden');
+    $('.offline').css('display', 'block');
+    $('#offline').css('background-color', 'red');
+  });
 }

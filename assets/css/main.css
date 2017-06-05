@@ -1,0 +1,60 @@
+h1 {
+  text-align: center; }
+
+.twitch-viewer {
+  margin: 0 auto;
+  max-width: 75%; }
+
+.menubar {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+  .menubar a {
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: center;
+    background-color: pink; }
+    .menubar a:hover {
+      background-color: blue; }
+
+.twitch-user {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
+  justify-content: space-around;
+  margin-top: 15px;
+  background-color: pink; }
+  .twitch-user .twitch-avatar {
+    display: block;
+    border-radius: 50%;
+    max-width: 100px;
+    max-height: 100px; }
+
+.twitch-username {
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center; }
+
+.twitch-game {
+  font-style: italic;
+  font-size: 18px;
+  text-align: center; }
+
+.online-streaming-icons i {
+  display: block;
+  margin-top: 10px; }
+
+.online-streaming-icons .online {
+  color: green; }
+
+.online-streaming-icons .offline {
+  color: red; }

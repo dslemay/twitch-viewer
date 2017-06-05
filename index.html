@@ -3,11 +3,27 @@
   <head>
     <meta charset="utf-8">
     <title>Twitch TV viewer</title>
-    <link rel="stylesheet" src="assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
   </head>
   <body>
     <div class="twitch-viewer">
-
+      <h1>Twitch Viewer</h1>
+      <div class="menubar">
+        <a href="#" id="all">All</a>
+        <a href="#" id="online">Online</a>
+        <a href="#" id="online">Offline</a>
+    </div>
+    <div class="twitch-user">
+      <img class="twitch-avatar" src="https://static-cdn.jtvnw.net/jtv_user_pictures/esl_sc2-profile_image-d6db9488cec97125-300x300.jpeg" />
+      <div>
+        <p class="twitch-username"><strong>ESL_SC2</strong></p>
+        <p class="twitch-game">Starcraft 2</p>
+      </div>
+      <div class="online-streaming-icons">
+        <i class="fa fa-circle fa-2x"></i>
+        <i class="fa fa-video-camera fa-2x"></i>
+      </div>
     </div>
     <script src="assets/js/jquery-3.2.1.min.js"></script>
     <script src="assets/js/functions.js"></script>
