@@ -28,16 +28,20 @@ h1 {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-justify-content: space-around;
-  -ms-flex-pack: distribute;
-  justify-content: space-around;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   margin-top: 15px;
   background-color: pink; }
-  .twitch-user .twitch-avatar {
-    display: block;
-    border-radius: 50%;
-    max-width: 100px;
-    max-height: 100px; }
+  .twitch-user .twitch-avatar-container {
+    width: 100px;
+    height: 100px;
+    margin-left: 25px; }
+    .twitch-user .twitch-avatar-container .twitch-avatar {
+      border-radius: 50%;
+      max-width: 100px;
+      max-height: 100px; }
 
 .twitch-username {
   font-weight: bold;
@@ -49,12 +53,14 @@ h1 {
   font-size: 18px;
   text-align: center; }
 
-.online-streaming-icons i {
+.icons {
+  margin-right: 25px; }
+  .icons .online-icon {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    max-width: 25px; }
+
+.img-placeholder {
   display: block;
-  margin-top: 10px; }
-
-.online-streaming-icons .online {
-  color: green; }
-
-.online-streaming-icons .offline {
-  color: red; }
+  visibility: hidden; }
