@@ -11,6 +11,9 @@ h1 {
   max-width: 60%;
   background-color: #6441A4;
   color: #FFF; }
+  @media screen and (max-width: 600px) {
+    .twitch-viewer {
+      max-width: 85%; } }
 
 .menubar {
   display: -webkit-box;

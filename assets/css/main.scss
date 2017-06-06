@@ -17,6 +17,10 @@ h1 {
   max-width: 60%;
   background-color: $baseColor;
   color: #FFF;
+
+  @media screen and (max-width: 600px) {
+    max-width: 85%;
+  }
 }
 
 .menubar {
