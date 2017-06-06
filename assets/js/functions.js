@@ -4,8 +4,7 @@ var usersObj = {};
 
 $(document).ready(function() {
   populateObj();
-  //toggleUsers();
-  console.log(usersObj);
+  toggleUsers();
 });
 
 /* Free Code Camp Twitch API pass-through to not utilize/publish API key
@@ -104,26 +103,26 @@ function accountLink(game, username) { // Sets link of camera icon to account pa
   }
 }
 
-
-// When creating template generation apply extra class of online or offline to main div element to serve as toggle
-
-function toggleUsers() {
+function toggleUsers() { // Monitors clicks of menumar and shows/hides users accordingly. Online or offline class are on
   $('#all').on('click', function(e) {
     e.preventDefault();
-    $('.online').css('display', 'block');
-    $('.offline').css('display', 'block');
-    $('#all').css('background-color', 'red');
+    $('.active').removeClass('active');
+    $('#all').addClass('active');
+    $('.online').css('display', 'flex');
+    $('.offline').css('display', 'flex');
   });
   $('#online').on('click', function(e) {
     e.preventDefault();
-    $('.online').css('display', 'block');
-    $('.offline').css('display', 'hidden');
-    $('#offline').css('background-color', 'red');
+    $('.active').removeClass('active');
+    $('#online').addClass('active');
+    $('.online').css('display', 'flex');
+    $('.offline').css('display', 'none');
   });
   $('#offline').on('click', function(e) {
     e.preventDefault();
-    $('.online').css('display', 'hidden');
-    $('.offline').css('display', 'block');
-    $('#offline').css('background-color', 'red');
+    $('.active').removeClass('active');
+    $('#offline').addClass('active');
+    $('.online').css('display', 'none');
+    $('.offline').css('display', 'flex');
   });
 }
