@@ -13,36 +13,49 @@ $(document).ready(function() {
 */
 
 function populateObj() {
-  for (var i = 0; i < twitchUsers.length; i++) {
-    let currentUser = twitchUsers[i];
-    $.get("http://wind-bow.glitch.me/twitch-api/streams/" + twitchUsers[i], function(data) {
-      usersObj[currentUser] = {};
-      usersObj[currentUser].username = currentUser;
-      if (data.stream == null) {
-        usersObj[currentUser].online = "offline";
-      } else if (data.stream.hasOwnProperty("_id")) { //Tests if the user is streaming
-        usersObj[currentUser].online = "online";
-        usersObj[currentUser].game = data.stream.game;
-      }
-      $.get("http://wind-bow.glitch.me/twitch-api/users/" + currentUser, function(data) {
-        usersObj[currentUser].logo = data.logo;
-        if (data.hasOwnProperty("status")) {
-          /* Checks if account does not exist or is "unavailable" and stores infornation into game
-          property. User will dispaly as being offline and the text stating the account does not exist
-          or us unavailable will display under the user name where game information is displayed. */
-          switch (data.status) {
-            case 422:
-              usersObj[currentUser].game = "Account is unavailable"
-              break;
-            case 404:
-              usersObj[currentUser].game = "Account does not exist"
-              break;
-          }
+  // var userCount = twitchUsers.length;
+  // var userIterations = 0;
+  let userPopulationPromise = new Promise(function(resolve, reject) {
+    var userCount = twitchUsers.length;
+    var userIterations = 0;
+    for (var i = 0; i < twitchUsers.length; i++) {
+      let currentUser = twitchUsers[i];
+      $.get("http://wind-bow.glitch.me/twitch-api/streams/" + twitchUsers[i], function(data) {
+        usersObj[currentUser] = {};
+        usersObj[currentUser].username = currentUser;
+        if (data.stream == null) {
+          usersObj[currentUser].online = "offline";
+        } else if (data.stream.hasOwnProperty("_id")) { //Tests if the user is streaming
+          usersObj[currentUser].online = "online";
+          usersObj[currentUser].game = data.stream.game;
         }
-      });
-    });
-  }
-  setTimeout(displayUsers, 500)
+        $.get("http://wind-bow.glitch.me/twitch-api/users/" + currentUser, function(data) {
+          usersObj[currentUser].logo = data.logo;
+          if (data.hasOwnProperty("status")) {
+            /* Checks if account does not exist or is "unavailable" and stores infornation into game
+            property. User will dispaly as being offline and the text stating the account does not exist
+            or us unavailable will display under the user name where game information is displayed. */
+            switch (data.status) {
+              case 422:
+                usersObj[currentUser].game = "Account is unavailable"
+                break;
+              case 404:
+                usersObj[currentUser].game = "Account does not exist"
+                break;
+            }
+          }
+          userIterations++;
+        }); // End second API call
+      }); // End first API call
+    } // End for loop
+    if (userCount = userIterations) {
+      resolve("Success");
+    }
+  });
+  userPopulationPromise.then(function(successMessage) {
+    console.log("Congratulations! It is a " + successMessage);
+  });
+  // setTimeout(displayUsers, 500)
 }
 
 function displayUsers() { // Populates interface with the data stored in usersObj
