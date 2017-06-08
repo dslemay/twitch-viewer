@@ -13,12 +13,10 @@ $(document).ready(function() {
 */
 
 function populateObj() {
-  // var userCount = twitchUsers.length;
-  // var userIterations = 0;
-  let userPopulationPromise = new Promise(function(resolve, reject) {
-    var userCount = twitchUsers.length;
-    var userIterations = 0;
-    for (var i = 0; i < twitchUsers.length; i++) {
+  for (var i = 0; i < twitchUsers.length; i++) {
+    var usersIterations = 0;
+    var usersCount = twitchUsers.length;
+    let userPromise = new Promise(function(resolve, reject) {
       let currentUser = twitchUsers[i];
       $.get("http://wind-bow.glitch.me/twitch-api/streams/" + twitchUsers[i], function(data) {
         usersObj[currentUser] = {};
@@ -44,18 +42,20 @@ function populateObj() {
                 break;
             }
           }
-          userIterations++;
+          if (Object.keys(usersObj[currentUser]).length >= 3) {
+            resolve("Success");
+          }
         }); // End second API call
       }); // End first API call
-    } // End for loop
-    if (userCount = userIterations) {
-      resolve("Success");
-    }
-  });
-  userPopulationPromise.then(function(successMessage) {
-    console.log("Congratulations! It is a " + successMessage);
-  });
-  // setTimeout(displayUsers, 500)
+    }); // End promise
+    userPromise.then(function(successMessage) {
+      // Counts up each promise resolution. When equals the total number of users it calls the displayUsers function.
+      usersIterations++;
+      if (usersIterations == usersCount) {
+        displayUsers();
+      }
+    });
+  } // End for loop
 }
 
 function displayUsers() { // Populates interface with the data stored in usersObj
