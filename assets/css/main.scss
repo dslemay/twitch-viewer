@@ -3,6 +3,10 @@ $baseColor: #6441A4;
 $accentColor: #0E9DD9;
 $hoverColor: lighten($baseColor, 10%);
 
+body {
+  background-color: #DDD;
+}
+
 h1 {
   text-align: center;
   padding-top: 20px;
