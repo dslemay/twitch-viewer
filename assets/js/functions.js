@@ -43,41 +43,36 @@ function populateObj() {
             }
           }
           if (Object.keys(usersObj[currentUser]).length >= 3) {
-            resolve("Success");
+            resolve(usersObj[currentUser]);
           }
         }); // End second API call
       }); // End first API call
     }); // End promise
-    userPromise.then(function(successMessage) {
-      // Counts up each promise resolution. When equals the total number of users it calls the displayUsers function.
-      usersIterations++;
-      if (usersIterations == usersCount) {
-        displayUsers();
-      }
+    userPromise.then(function(userData) {
+      // Promise resolves that all fields are populated for a user and then adds HTML elements to display data.
+      displayUsers(userData)
     });
   } // End for loop
 }
 
-function displayUsers() { // Populates interface with the data stored in usersObj
-  for (var user in usersObj) {
-    let logo = logoVerify(usersObj[user].logo);
-    let game = gameVerify(usersObj[user].game);
-    let online = onlineStatus(usersObj[user].online);
-    let link = accountLink(usersObj[user].game, usersObj[user].username);
-    $('.twitch-viewer').append('<div class="twitch-user ' + usersObj[user].online + '">\
-      <div class="twitch-avatar-container">\
-        ' + logo + '\
-        </div>\
-      <div>\
-        <p class="twitch-username">' + usersObj[user].username + '</p>\
-        <p class="twitch-game">' + game + '</p>\
+function displayUsers(user) { // Populates interface with the data stored for each user when API calls populate values
+  let logo = logoVerify(user.logo);
+  let game = gameVerify(user.game);
+  let online = onlineStatus(user.online);
+  let link = accountLink(user.game, user.username);
+  $('.twitch-viewer').append('<div id="' + user.username + '" class="twitch-user ' + user.online + '">\
+    <div class="twitch-avatar-container">\
+      ' + logo + '\
       </div>\
-      <div class="icons">\
-         ' + online + '\
-        ' + link + '\
-      </div>\
-    </div>');
-  }
+    <div>\
+      <p class="twitch-username">' + user.username + '</p>\
+      <p class="twitch-game">' + game + '</p>\
+    </div>\
+    <div class="icons">\
+       ' + online + '\
+      ' + link + '\
+    </div>\
+  </div>');
 }
 
 function logoVerify(logoValue) {  // Verifies that logo does not contain null or undefined and returns HTML to populate twitch-user
