@@ -114,7 +114,6 @@ function intervalUpdate() {
 }
 
 function updateUsersObj() {
-  console.log("Interval successfully called");
   for (var user in usersObj) {
     /* Manually reset onlines and game values to be undefined before fetching the data
      * from the API in order to not premauturely resolve the promise. This initial function filters out accounts that
@@ -153,6 +152,18 @@ function updateUserDisplay(user) {
   $('#' + user.username + '').find('.online-icon').replaceWith(online);
   $('#' + user.username + '').find('.twitch-game').text(game);
 }
+
+// Function for user manual refresh
+
+$('#refresh-data').on('click', function(e) {
+  e.preventDefault();
+  var spinner = $(this);
+  spinner.addClass('rotate-refresh');
+  setTimeout(function() {
+    spinner.removeClass('rotate-refresh');
+  }, 2000);
+  updateUsersObj();
+});
 
 // End user update functions
 

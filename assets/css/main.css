@@ -16,7 +16,7 @@ h1 {
   color: #FFF; }
   @media screen and (max-width: 600px) {
     .twitch-viewer {
-      max-width: 85%; } }
+      max-width: 100%; } }
 
 .menubar {
   display: -webkit-box;
@@ -41,6 +41,26 @@ h1 {
       background-color: #7d5abe; }
   .menubar .active {
     background-color: #7d5abe; }
+  .menubar #refresh-data {
+    cursor: pointer;
+    color: #000;
+    margin-right: 15px;
+    margin-left: 10px; }
+  .menubar .rotate-refresh {
+    -webkit-animation-name: spin;
+    animation-name: spin;
+    -webkit-animation-duration: 2s;
+    animation-duration: 2s; }
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(720deg);
+    transform: rotate(720deg); } }
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(720deg);
+    transform: rotate(720deg); } }
 
 .twitch-user {
   display: -webkit-box;
@@ -56,20 +76,34 @@ h1 {
     width: 100px;
     height: 100px;
     margin-left: 25px; }
+    @media screen and (max-width: 600px) {
+      .twitch-user .twitch-avatar-container {
+        width: 75px;
+        height: 75px; } }
     .twitch-user .twitch-avatar-container .twitch-avatar {
       border-radius: 50%;
       max-width: 100px;
       max-height: 100px; }
+      @media screen and (max-width: 600px) {
+        .twitch-user .twitch-avatar-container .twitch-avatar {
+          max-width: 75px;
+          max-height: 75px; } }
 
 .twitch-username {
   font-weight: bold;
   font-size: 20px;
   text-align: center; }
+  @media screen and (max-width: 600px) {
+    .twitch-username {
+      font-size: 16px; } }
 
 .twitch-game {
   font-style: italic;
   font-size: 18px;
   text-align: center; }
+  @media screen and (max-width: 600px) {
+    .twitch-game {
+      font-size: 14px; } }
 
 .icons {
   margin-right: 25px; }
