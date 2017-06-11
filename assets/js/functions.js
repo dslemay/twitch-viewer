@@ -1,9 +1,15 @@
-// Update twitchUsers array with all Twitch usernames you want included in the JSON and web app.
-var twitchUsers = ["ESL_SC2", "brunofin", "comster404", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+/* Update users array with all Twitch usernames you want included in the JSON and web app.
+ * Users must be string variables. All users will be run through the function of verifyUsersType
+ * on document ready, and any items that are not a string will be removed. The app will display
+ * users which do not have an account or whose account is no longer available. When this happens
+ * the infromation about the account status will be displayed in the "game" section of the display.
+*/
+var users = ["ESL_SC2", "brunofin", "comster404", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+var twitchUsers = [];
 var usersObj = {};
 
 $(document).ready(function() {
-  populateObj();
+  verifyUsersType();
   toggleUsers();
   intervalUpdate();
 });
@@ -12,6 +18,15 @@ $(document).ready(function() {
  * Use base url: https://wind-bow.gomix.me/twitch-api in API calls
  * Server only accepts GET requests and only routes /users/:user, /channels/:channel, and /streams/:stream
 */
+
+function verifyUsersType() {
+  for (var i = 0; i < users.length; i++) {
+    if (typeof users[i] === "string") {
+      twitchUsers.push(users[i]);
+    }
+  }
+  populateObj();
+}
 
 function populateObj() {
   for (var i = 0; i < twitchUsers.length; i++) {
