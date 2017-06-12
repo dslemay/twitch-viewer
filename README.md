@@ -3,7 +3,12 @@
 This project is part of the Free Code Camp front-end developer certification program. The purpose of this project is to
 create a web application that will display if a Twitch user is streaming, and if so provide additional information.
 The objectives of the challenges have been copied below, and the full page of the challenge can be found at
-[Free Code Camp](https://www.freecodecamp.com/challenges/use-the-twitchtv-json-api)
+[Free Code Camp](https://www.freecodecamp.com/challenges/use-the-twitchtv-json-api).
+
+In addition to the user stories below I also added functionality for a set update interval of 5 minutes, with the ability
+for the user to manually poll for updates. In order to add or subtract users from the viewer, the users array at the top of
+the Javascript file can be updated. Prior to polling the API and displaying the data, the script removes any items which are
+not a string, and pushes all of the string items to the twitchUsers array which is the base for the viewer.
 
 1. Objective: Build a CodePen.io app that is functionally similar to this: https://codepen.io/FreeCodeCamp/full/Myvqmo/.
 2. Fulfill the below user stories. Use whichever libraries or APIs you need. Give it your own personal style.

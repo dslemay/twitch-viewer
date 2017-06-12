@@ -4,7 +4,7 @@
  * users which do not have an account or whose account is no longer available. When this happens
  * the infromation about the account status will be displayed in the "game" section of the display.
 */
-var users = ["ESL_SC2", "brunofin", "comster404", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas"];
+var users = ["ESL_SC2", "brunofin", "comster404", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "syndicate", "summit1g", "sodapoppin", "boxbox", "Voyboy"];
 var twitchUsers = [];
 var usersObj = {};
 
