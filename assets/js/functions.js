@@ -30,8 +30,6 @@ function verifyUsersType() {
 
 function populateObj() {
   for (var i = 0; i < twitchUsers.length; i++) {
-    var usersIterations = 0;
-    var usersCount = twitchUsers.length;
     let userPromise = new Promise(function(resolve, reject) {
       let currentUser = twitchUsers[i];
       $.get("http://wind-bow.glitch.me/twitch-api/streams/" + twitchUsers[i], function(data) {
