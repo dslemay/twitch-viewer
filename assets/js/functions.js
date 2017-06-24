@@ -36,14 +36,23 @@ function initializeStorage() {
 
 function addUser(user) {
   if (verifyUsersType(user) === true) {
+    twitchUsers.push(user);
+    localStorage.setItem('users', JSON.stringify(twitchUsers));
     populateObj(user);
   }
 }
 
+function removeUser(user) {
+  var index = twitchUsers.indexOf(user);
+  if (index >=0) {
+    twitchUsers.splice(index, 1);
+    localStorage.setItem('users', JSON.stringify(twitchUsers));
+    $('#' + user).fadeOut(800, function() {$(this).remove();});
+  }
+}
 
 function verifyUsersType(user) {
   if (typeof user === "string") {
-    twitchUsers.push(user);
     return true;
   } else {return false;}
 }
