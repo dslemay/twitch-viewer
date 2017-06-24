@@ -4,12 +4,12 @@
  * users which do not have an account or whose account is no longer available. When this happens
  * the infromation about the account status will be displayed in the "game" section of the display.
 */
-var users = ["ESL_SC2", "brunofin", "comster404", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "syndicate", "summit1g", "sodapoppin", "boxbox", "Voyboy"];
+var initialUsers = ["ESL_SC2", "brunofin", "comster404", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "syndicate", "summit1g", "sodapoppin", "boxbox", "Voyboy"];
 var twitchUsers = [];
 var usersObj = {};
 
 $(document).ready(function() {
-  verifyUsersType();
+  initializeStorage();
   toggleUsers();
   intervalUpdate();
 });
@@ -19,55 +19,72 @@ $(document).ready(function() {
  * Server only accepts GET requests and only routes /users/:user, /channels/:channel, and /streams/:stream
 */
 
-function verifyUsersType() {
-  for (var i = 0; i < users.length; i++) {
-    if (typeof users[i] === "string") {
-      twitchUsers.push(users[i]);
+function initializeStorage() {
+  if(localStorage.hasOwnProperty('users')) {
+    twitchUsers = JSON.parse(localStorage.getItem('users'));
+    for (var i = 0; i < twitchUsers.length; i++) {
+      populateObj(twitchUsers[i]);
+    }
+  } else {
+    localStorage.setItem('users', JSON.stringify(initialUsers));
+    twitchUsers = JSON.parse(localStorage.getItem('users'));
+    for (var i = 0; i < twitchUsers.length; i++) {
+      populateObj(twitchUsers[i]);
     }
   }
-  populateObj();
 }
 
-function populateObj() {
-  for (var i = 0; i < twitchUsers.length; i++) {
-    let userPromise = new Promise(function(resolve, reject) {
-      let currentUser = twitchUsers[i];
-      $.get("http://wind-bow.glitch.me/twitch-api/streams/" + twitchUsers[i], function(data) {
-        usersObj[currentUser] = {};
-        usersObj[currentUser].username = currentUser;
-        if (data.stream == null) {
-          usersObj[currentUser].online = "offline";
-          usersObj[currentUser].game = "Offline";
-        } else if (data.stream.hasOwnProperty("_id")) { //Tests if the user is streaming
-          usersObj[currentUser].online = "online";
-          usersObj[currentUser].game = data.stream.game;
+function addUser(user) {
+  if (verifyUsersType(user) === true) {
+    populateObj(user);
+  }
+}
+
+
+function verifyUsersType(user) {
+  if (typeof user === "string") {
+    twitchUsers.push(user);
+    return true;
+  } else {return false;}
+}
+
+function populateObj(user) {
+  let userPromise = new Promise(function(resolve, reject) {
+    $.get("http://wind-bow.glitch.me/twitch-api/streams/" + user, function(data) {
+      usersObj[user] = {};
+      usersObj[user].username = user;
+      if (data.stream == null) {
+        usersObj[user].online = "offline";
+        usersObj[user].game = "Offline";
+      } else if (data.stream.hasOwnProperty("_id")) { //Tests if the user is streaming
+        usersObj[user].online = "online";
+        usersObj[user].game = data.stream.game;
+      }
+      $.get("http://wind-bow.glitch.me/twitch-api/users/" + user, function(data) {
+        usersObj[user].logo = data.logo;
+        if (data.hasOwnProperty("status")) {
+          /* Checks if account does not exist or is "unavailable" and stores infornation into game
+          property. User will dispaly as being offline and the text stating the account does not exist
+          or us unavailable will display under the user name where game information is displayed. */
+          switch (data.status) {
+            case 422:
+              usersObj[user].game = "Account is unavailable"
+              break;
+            case 404:
+              usersObj[user].game = "Account does not exist"
+              break;
+          }
         }
-        $.get("http://wind-bow.glitch.me/twitch-api/users/" + currentUser, function(data) {
-          usersObj[currentUser].logo = data.logo;
-          if (data.hasOwnProperty("status")) {
-            /* Checks if account does not exist or is "unavailable" and stores infornation into game
-            property. User will dispaly as being offline and the text stating the account does not exist
-            or us unavailable will display under the user name where game information is displayed. */
-            switch (data.status) {
-              case 422:
-                usersObj[currentUser].game = "Account is unavailable"
-                break;
-              case 404:
-                usersObj[currentUser].game = "Account does not exist"
-                break;
-            }
-          }
-          if (Object.keys(usersObj[currentUser]).length = 4) {
-            resolve(usersObj[currentUser]);
-          }
-        }); // End second API call
-      }); // End first API call
-    }); // End promise
-    userPromise.then(function(userData) {
-      // Promise resolves that all fields are populated for a user and then adds HTML elements to display data.
-      displayUsers(userData)
-    });
-  } // End for loop
+        if (Object.keys(usersObj[user]).length = 4) {
+          resolve(usersObj[user]);
+        }
+      }); // End second API call
+    }); // End first API call
+  }); // End promise
+  userPromise.then(function(userData) {
+    // Promise resolves that all fields are populated for a user and then adds HTML elements to display data.
+    displayUsers(userData)
+  });
 }
 
 function displayUsers(user) { // Populates interface with the data stored for each user when API calls populate values
