@@ -21,9 +21,31 @@ h1 {
   max-width: 60%;
   background-color: $baseColor;
   color: #FFF;
+  position: relative;
 
   @media screen and (max-width: 600px) {
     max-width: 100%;
+  }
+}
+
+#refresh-data {
+  cursor: pointer;
+  color: #000;
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  // margin-right: 15px;
+  // margin-left: 10px;
+}
+
+.rotate-refresh {
+  animation-name: spin;
+  animation-duration: 2s;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(720deg);
   }
 }
 
@@ -47,24 +69,6 @@ h1 {
 
   .active {
     background-color: lighten($baseColor, 10%);
-  }
-
-  #refresh-data {
-    cursor: pointer;
-    color: #000;
-    margin-right: 15px;
-    margin-left: 10px;
-  }
-
-  .rotate-refresh {
-    animation-name: spin;
-    animation-duration: 2s;
-  }
-
-  @keyframes spin {
-    100% {
-      transform: rotate(720deg);
-    }
   }
 }
 
