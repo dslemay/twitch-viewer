@@ -35,7 +35,17 @@ function initializeStorage() {
 }
 
 function addUser(user) {
-  if (verifyUsersType(user) === true) {
+  var regex = /[\s,]+/;
+  var userArr = [];
+  user = user.trim();
+  if (regex.test(user)) {
+    userArr = user.split(regex);
+    for (var i=0; i < userArr.length; i++) {
+      twitchUsers.push(userArr[i]);
+      populateObj(userArr[i]);
+    }
+    localStorage.setItem('users', JSON.stringify(twitchUsers));
+  } else {
     twitchUsers.push(user);
     localStorage.setItem('users', JSON.stringify(twitchUsers));
     populateObj(user);
