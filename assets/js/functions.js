@@ -111,6 +111,7 @@ function displayUsers(user) { // Populates interface with the data stored for ea
   let online = onlineStatus(user.online);
   let link = accountLink(user.game, user.username);
   $('.twitch-viewer').append('<div id="' + user.username + '" class="twitch-user ' + user.online + '">\
+    <div class="remove-user-btn">X</div>\
     <div class="twitch-avatar-container">\
       ' + logo + '\
       </div>\
@@ -123,6 +124,19 @@ function displayUsers(user) { // Populates interface with the data stored for ea
       ' + link + '\
     </div>\
   </div>');
+  // This code enables the remove user "x" icon and functionality to remove a user.
+  $('#' + user.username).hover(
+    function() {
+      $(this).children('.remove-user-btn').css('display', 'flex').hide().fadeIn(600);
+    },
+    function() {
+      $(this).children('.remove-user-btn').fadeOut(600);
+    }
+  );
+  $('#' + user.username).children('.remove-user-btn').on('click', function(e) {
+    e.preventDefault();
+    removeUser(user.username);
+  });
 }
 
 function logoVerify(logoValue) {  // Verifies that logo does not contain null or undefined and returns HTML to populate twitch-user
