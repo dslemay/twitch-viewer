@@ -10,6 +10,11 @@ for the user to manually poll for updates. In order to add or subtract users fro
 the Javascript file can be updated. Prior to polling the API and displaying the data, the script removes any items which are
 not a string, and pushes all of the string items to the twitchUsers array which is the base for the viewer.
 
+June 28, 2017: I have added the ability to use localstorage to tailor the users displayed to the preferences of the end
+user. Upon initial load, if there are no values stored in localstorage, a default array of users will populate the object.
+If there are users stored in localstorage the app will read the values from storage and ignore the default initial users
+array. End users are able to add and remove which Twitch users are displayed.
+
 1. Objective: Build a CodePen.io app that is functionally similar to this: https://codepen.io/FreeCodeCamp/full/Myvqmo/.
 2. Fulfill the below user stories. Use whichever libraries or APIs you need. Give it your own personal style.
 3. User Story: I can see whether Free Code Camp is currently streaming on Twitch.tv.
