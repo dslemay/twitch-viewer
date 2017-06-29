@@ -1,8 +1,8 @@
-/* Update users array with all Twitch usernames you want included in the JSON and web app.
- * Users must be string variables. All users will be run through the function of verifyUsersType
- * on document ready, and any items that are not a string will be removed. The app will display
- * users which do not have an account or whose account is no longer available. When this happens
- * the infromation about the account status will be displayed in the "game" section of the display.
+/* Update initialUsers array with all Twitch usernames you want included in the JSON and web app by default.
+ * Users must be string variables. The app will display users which do not have an account or whose account
+ * is no longer available. When this happens the information about the account status will be displayed in
+ * the "game" section of the display. The app utilizes localStorage to allow the end user to customize which
+ * users they want to follow and remove others from the initial defaults.
 */
 var initialUsers = ["ESL_SC2", "brunofin", "comster404", "OgamingSC2", "cretetion", "freecodecamp", "storbeck", "habathcx", "RobotCaleb", "noobs2ninjas", "syndicate", "summit1g", "sodapoppin", "boxbox", "Voyboy"];
 var twitchUsers = [];
@@ -60,12 +60,6 @@ function removeUser(user) {
     localStorage.setItem('users', JSON.stringify(twitchUsers));
     $('#' + user).fadeOut(800, function() {$(this).remove();});
   }
-}
-
-function verifyUsersType(user) {
-  if (typeof user === "string") {
-    return true;
-  } else {return false;}
 }
 
 function populateObj(user) {
@@ -149,7 +143,7 @@ function logoVerify(logoValue) {  // Verifies that logo does not contain null or
   }
 }
 
-function onlineStatus(onlineValue) { // Changes the color of the icon for each account based off their onlien status
+function onlineStatus(onlineValue) { // Changes the color of the icon for each account based off their online status
   var online = "";
   if (onlineValue == "online") {
     return online = '<img src="/assets/img/online.png" class="online-icon" />'
