@@ -12,6 +12,7 @@ $(document).ready(function() {
   initializeStorage();
   toggleUsers();
   intervalUpdate();
+  userAddField();
 });
 
 /* Free Code Camp Twitch API pass-through to not utilize/publish API key
@@ -251,5 +252,54 @@ function toggleUsers() { // Monitors clicks of menumar and shows/hides users acc
     $('#offline').addClass('active');
     $('.online').css('display', 'none');
     $('.offline').css('display', 'flex');
+  });
+}
+
+function userAddField() {
+  var submitIcon = $('.add-icon');
+  var addWrapper = $('.add-user-wrapper');
+  var addContainer = $('.addbox');
+  var addInput = $('.add-input');
+  var isOpen = false;
+
+  submitIcon.on('click', function() {
+    if (isOpen == false) {
+      addContainer.addClass('addbox-open');
+      addWrapper.css('width', '250px');
+      addInput.focus();
+      isOpen = true;
+    } else {
+      addContainer.removeClass('addbox-open');
+      addWrapper.css('width', '50px');
+      addInput.focusout();
+      isOpen = false;
+    }
+  });
+  submitIcon.mouseup(function() {
+    return false;
+  });
+  addContainer.mouseup(function() {
+    return false;
+  });
+  $(document).mouseup(function(){
+    if (isOpen == true) {
+        $('.add-icon').css('display', 'block');
+        addInput.val("");
+        submitIcon.click();
+    }
+  });
+  addInput.keydown(function(e) {
+    if (e.which == 13) { // Registers press of enter key and runs addUser function if length > 0.
+      e.preventDefault();
+      if (addInput.val().length > 0) {
+        addUser(addInput.val());
+      }
+      addInput.val("");
+      submitIcon.click();
+    } else if(e.which == 27) { // Registers press of escape key
+      e.preventDefault();
+      addInput.val("");
+      submitIcon.click();
+    }
   });
 }
