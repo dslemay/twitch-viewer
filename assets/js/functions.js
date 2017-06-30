@@ -146,9 +146,9 @@ function logoVerify(logoValue) {  // Verifies that logo does not contain null or
 function onlineStatus(onlineValue) { // Changes the color of the icon for each account based off their online status
   var online = "";
   if (onlineValue == "online") {
-    return online = '<img src="/assets/img/online.png" class="online-icon" />'
+    return online = '<img src="assets/img/online.png" class="online-icon" />'
   } else {
-    return online = '<img src="/assets/img/offline.png" class="online-icon" />'
+    return online = '<img src="assets/img/offline.png" class="online-icon" />'
   }
 }
 
